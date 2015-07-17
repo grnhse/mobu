@@ -29,6 +29,7 @@ class MobuTest < MiniTest::Spec
       @controller = MobuFake.new
       @controller.stubs session: @session
       @controller.stubs request: @request
+      @controller.mobile_allowed = true
     end
 
     it "set and cache mobile_request?" do
@@ -148,6 +149,18 @@ class MobuTest < MiniTest::Spec
           assert_equal "/home/snoop/yer_app/app/views_tablet", @controller.send(:tablet_views_path).to_s
         end    
       end          
+    end
+
+    describe "When mobile_allowed is false" do
+      before do
+        @controller.mobile_allowed = false
+        @request.stubs user_agent: IPAD_USER_AGENT
+      end
+
+      it "disregards actual user agents" do
+        expect_no_tablet_views
+        expect_no_mobile_views
+      end
     end
   end
   

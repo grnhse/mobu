@@ -6,6 +6,7 @@ require 'uri'
 
 module Mobu
   module DetectMobile
+
     extend ActiveSupport::Concern
 
     # List of mobile agents from mobile_fu:
@@ -27,6 +28,8 @@ module Mobu
                     :prefer_mobile_site_url,
                     :tablet_request?,
                     :tablet_browser?
+
+      attr_accessor :mobile_allowed
     end
 
   private
@@ -84,6 +87,14 @@ module Mobu
       user_agent_matches(TABLET_USER_AGENTS)
     end
 
+    def mobile_or_tablet_request?
+      mobile_request? || tablet_request?
+    end
+
+    def mobile_allowed?
+      !!mobile_allowed
+    end
+
     def check_mobile_site
       case params.delete(:prefer)
       when "f"
@@ -91,6 +102,8 @@ module Mobu
       when "m"
         session.delete :prefer_full_site
       end
+
+      return unless mobile_allowed?
 
       if mobile_request?
         prepend_view_path mobile_views_path
