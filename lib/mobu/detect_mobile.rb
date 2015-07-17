@@ -31,8 +31,8 @@ module Mobu
 
       def mobile_allowed=(value)
         @mobile_allowed = value
-        remove_instance_variable @mobile_request
-        remove_instance_variable @tablet_request
+        remove_instance_variable(:@mobile_request)
+        remove_instance_variable(:@tablet_request)
       end
 
       def mobile_allowed?
