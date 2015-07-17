@@ -1,3 +1,3 @@
 module Mobu
-  VERSION = '0.0.4-greenhouse'
+  VERSION = '0.0.4'
 end
