@@ -27,9 +27,18 @@ module Mobu
                     :prefer_full_site_url,
                     :prefer_mobile_site_url,
                     :tablet_request?,
-                    :tablet_browser?,
-                    :mobile_allowed=,
-                    :mobile_allowed?
+                    :tablet_browser?
+
+      def mobile_allowed=(value)
+        @mobile_allowed = value
+        remove_instance_variable @mobile_request
+        remove_instance_variable @tablet_request
+      end
+
+      def mobile_allowed?
+        !!@mobile_allowed
+      end
+
     end
 
   private
@@ -89,16 +98,6 @@ module Mobu
 
     def mobile_or_tablet_request?
       mobile_request? || tablet_request?
-    end
-
-    def mobile_allowed=(value)
-      @mobile_allowed = value
-      remove_instance_variable @mobile_request
-      remove_instance_variable @tablet_request
-    end
-
-    def mobile_allowed?
-      !!@mobile_allowed
     end
 
     def check_mobile_site
