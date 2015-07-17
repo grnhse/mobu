@@ -28,7 +28,7 @@ module Mobu
                     :prefer_mobile_site_url,
                     :tablet_request?,
                     :tablet_browser?,
-                    :mobile_request=,
+                    :mobile_allowed=,
                     :mobile_allowed?
     end
 
