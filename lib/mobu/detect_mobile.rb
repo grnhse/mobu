@@ -60,7 +60,7 @@ module Mobu
     end
 
     def force_full_site
-      session[:prefer_full_site]
+      session[:prefer_full_site] || !mobile_allowed?
     end
 
     def mobile_request?
@@ -102,8 +102,6 @@ module Mobu
       when "m"
         session.delete :prefer_full_site
       end
-
-      return unless mobile_allowed?
 
       if mobile_request?
         prepend_view_path mobile_views_path
