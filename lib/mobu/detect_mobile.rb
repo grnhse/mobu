@@ -103,6 +103,8 @@ module Mobu
         session.delete :prefer_full_site
       end
 
+      return unless mobile_allowed?
+
       if mobile_request?
         prepend_view_path mobile_views_path
       elsif tablet_request?
