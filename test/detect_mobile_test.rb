@@ -29,7 +29,7 @@ class MobuTest < MiniTest::Spec
       @controller = MobuFake.new
       @controller.stubs session: @session
       @controller.stubs request: @request
-      @controller.stubs mobile_allowed: true
+      @controller.stubs mobile_allowed?: true
     end
 
     it "set and cache mobile_request?" do
@@ -153,7 +153,7 @@ class MobuTest < MiniTest::Spec
 
     describe "When mobile_allowed is false" do
       before do
-        @controller.stubs mobile_allowed:  false
+        @controller.stubs mobile_allowed?:  false
         @request.stubs user_agent: IPAD_USER_AGENT
       end
 
