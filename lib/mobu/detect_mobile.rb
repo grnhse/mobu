@@ -20,7 +20,7 @@ module Mobu
     TABLET_USER_AGENTS = 'ipad|android 3.0|xoom|sch-i800|playbook|tablet|kindle|honeycomb|gt-p1000'
 
     included do
-      before_filter :check_mobile_site
+      before_filter :check_mobile_site, :if => -> { mobile_allowed? }
 
       helper_method :mobile_request?,
                     :mobile_browser?,
@@ -29,14 +29,8 @@ module Mobu
                     :tablet_request?,
                     :tablet_browser?
 
-      def mobile_allowed=(value)
-        @mobile_allowed = value
-        remove_instance_variable(:@mobile_request)
-        remove_instance_variable(:@tablet_request)
-      end
-
       def mobile_allowed?
-        !!@mobile_allowed
+        true
       end
 
     end
